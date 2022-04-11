@@ -58,23 +58,7 @@ class TestHtmlParser(unittest.TestCase):
         self.assertEqual(data, data_out)
         self.assertEqual(self.test_close.call_count, 3)
 
-    def test_factory_boy(self):
-        fake = Faker(locale='RU_ru')
-
-        test_text = fake.sentence()
-        parse_html(test_text, self.test_open, self.test_data, self.test_close)
-        self.assertEqual(self.test_open.call_count, 0)
-        self.assertEqual(self.test_data.call_count, 0)
-        self.assertEqual(self.test_close.call_count, 0)
-
-        test_text = fake.sentence() + '<html>' + fake.sentence() + '</html>' + fake.sentence()
-        parse_html(test_text, self.test_open, self.test_data, self.test_close)
-
-        self.assertEqual(self.test_open.call_count, 1)
-        self.assertEqual(self.test_data.call_count, 1)
-        self.assertEqual(self.test_close.call_count, 1)
-
-    def test_factory_boy2(self):
+    def test_with_factory_boy(self):
         fake = Faker(locale='RU_ru')
 
         test_text = '<html>' + fake.sentence() + '<h1>' + fake.sentence() + '</h1>' +\

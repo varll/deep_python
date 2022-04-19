@@ -34,5 +34,11 @@ class CustomList(list):
     def __ne__(self, other):
         return sum(self) != sum(other)
 
+    def __ge__(self, other):
+        return sum(self) >= sum(other)
+
+    def __le__(self, other):
+        return sum(self) <= sum(other)
+
     def __str__(self):
         return f'{list(self)}, {sum(self)}'

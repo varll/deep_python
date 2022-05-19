@@ -14,6 +14,11 @@ class TestCustomClass(unittest.TestCase):
         with self.assertRaises(AttributeError):
             self.inst.x
 
+    def test_val(self):
+        self.assertEqual(self.inst.custom_val, 99)
+        with self.assertRaises(AttributeError):
+            self.inst.val
+
     def test_line(self):
         self.assertEqual(self.inst.custom_line(), 100)
         self.assertEqual(CustomClass.custom_line(), 100)
@@ -31,6 +36,13 @@ class TestCustomClass(unittest.TestCase):
         self.assertEqual(self.inst.custom_dynamic, 'added later')
         with self.assertRaises(AttributeError):
             self.inst.dynamic
+
+    def test_custom_setattr(self):
+        self.inst.__setattr__('test', 14)
+
+        self.assertEqual(self.inst.custom_test, 14)
+        with self.assertRaises(AttributeError):
+            self.inst.test
 
 
 if __name__ == "__main__":

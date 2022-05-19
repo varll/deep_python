@@ -1,6 +1,6 @@
 class Integer:
     def __init__(self):
-        self.val = 0
+        self.val = None
 
     def __get__(self, instance, owner):
         return self.val
@@ -14,7 +14,7 @@ class Integer:
 
 class String:
     def __init__(self):
-        self.val = 0
+        self.val = None
 
     def __get__(self, instance, owner):
         return self.val
@@ -28,7 +28,7 @@ class String:
 
 class PositiveInteger:
     def __init__(self):
-        self.val = 0
+        self.val = None
 
     def __get__(self, instance, owner):
         return self.val

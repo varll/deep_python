@@ -7,11 +7,11 @@ class CustomMeta(type):
         }
         return type.__new__(mcs, name, bases, custom_attrs)
 
-    def custom_setattr(cls, key, val):
+    def __custom_setattr__(cls, key, val):
         cls.__dict__['custom_' + key] = val
 
     def __call__(cls, *args, **kwargs):
-        cls.__setattr__ = CustomMeta.custom_setattr
+        cls.__setattr__ = CustomMeta.__custom_setattr__
 
         self = type.__call__(cls, *args, **kwargs)
         custom_dict = {}

@@ -17,10 +17,10 @@ class LRUCache:
     def get(self, key):
         idx = self.find(key)
         if idx != -1:
-            k, v = self.lru_cache[idx]
+            k, val = self.lru_cache[idx]
             del self.lru_cache[idx]
-            self.lru_cache.append((k, v))
-            return v
+            self.lru_cache.append((k, val))
+            return val
 
         return None
 

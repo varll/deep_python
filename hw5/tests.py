@@ -43,6 +43,46 @@ class TestLRUCache(unittest.TestCase):
         self.assertEqual(cache.get('k2'), None)
         self.assertEqual(cache.get('k1'), 'val1')
 
+    def test_single_element(self):
+        cache = LRUCache(1)
+
+        cache.set('k1', 'val1')
+        self.assertEqual(cache.get('k1'), 'val1')
+
+        cache.set('k2', 'val2')
+
+        self.assertEqual(cache.get('k1'), None)
+        self.assertEqual(cache.get('k2'), 'val2')
+
+    def test_complete_exclusion(self):
+        cache = LRUCache(3)
+
+        for i in range(6):
+            cache.set(f'k{i+1}', f'val{i+1}')
+
+        for i in range(3):
+            self.assertEqual(cache.get(f'k{i+1}'), None)
+
+        for i in range(3):
+            self.assertEqual(cache.get(f'k{i+4}'), f'val{i+4}')
+
+    def test_set_twice_and_exclusion(self):
+        cache = LRUCache(5)
+
+        for i in range(5):
+            cache.set(f'k{i+1}', f'val{i+1}')
+
+        cache.set('k1', 'val1')
+
+        for i in range(4):
+            cache.set(f'test_k{i+1}', f'test_val{i+1}')
+
+        self.assertEqual(cache.get('k1'), 'val1')
+        for i in range(4):
+            self.assertEqual(cache.get(f'k{i+2}'), None)
+        for i in range(4):
+            self.assertEqual(cache.get(f'test_k{i+1}'), f'test_val{i+1}')
+
 
 if __name__ == '__main__':
     unittest.main()

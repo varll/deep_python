@@ -1,4 +1,5 @@
 import unittest
+import time
 from python_matrix_mul import python_chain_matrix_mul
 import numpy as np
 import cython_realization
@@ -41,6 +42,23 @@ class TestChainMatrixMul(unittest.TestCase):
 
         self.assertTrue((numpy_result == python_result).all())
         self.assertTrue((numpy_result == cython_result).all())
+
+    def test_time(self):
+        matrices = [[[i * 3 + j for i in range(90)] for j in range(90)] for k in range(60)]
+
+        start_ts = time.time()
+
+        python_chain_matrix_mul(matrices)
+
+        end_ts = time.time()
+        print(f'Python time: {end_ts - start_ts}')
+
+        start_ts = time.time()
+
+        cython_realization.cython_chain_matrix_mul(matrices)
+
+        end_ts = time.time()
+        print(f'Cython time: {end_ts - start_ts}')
 
 
 if __name__ == '__main__':
